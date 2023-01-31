@@ -28,10 +28,13 @@ all: ${NAME}
 $(NAME): ${OBJS}
 	$(CC) -o $@ ${OBJS} 
 
+BNS_OBJS : %.c 
+	$(CC) -c $(FLAGS) $<
+
 %.o : %.c $(INCL)
 	$(CC) -c $(FLAGS) $<
 
-bonus: ${BNS_OBJS}
+bonus: ${BNS_OBJS} pipex_bonus.h get_next_line.h
 	$(CC) -o ${NAME} ${BNS_OBJS} 
 
 clean:

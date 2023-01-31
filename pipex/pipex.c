@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex.h" 
 
 char	*check_path(char **paths, char *path)
 {

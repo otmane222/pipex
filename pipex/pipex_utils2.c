@@ -16,7 +16,7 @@ size_t	ft_count_strings(char const *str, char c)
 {
 	size_t		i;
 	size_t		j;
-	size_t		k;
+	size_t		k; 
 
 	i = 0;
 	j = 0;
