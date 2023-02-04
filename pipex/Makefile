@@ -1,19 +1,22 @@
 NAME = pipex
+NAME_BNS = pipex_bonus
+
+PRINTF = libftprintf.a
 
 SRCS = pipex.c \
 	pipex_utils1.c \
 	pipex_utils2.c \
-	pipex_utils.c \
+	pipex_utils_mandatory.c \
 
 BNS_SRCS	= pipex_bonus.c \
-			pipex_utils1.c \
-			pipex_utils2.c \
-			pipex_utils3bonus.c \
-			pipex_utils4bonus.c \
-			get_next_line.c \
-			get_next_line_utils.c \
+			pipex_utils1_bonus.c \
+			pipex_utils2_bonus.c \
+			pipex_utils3_bonus.c \
+			pipex_utils4_bonus.c \
+			get_next_line_bonus.c \
+			get_next_line_utils_bonus.c \
 
-INCL = pipex.h
+INCL = pipex.h 
 
 OBJS = ${SRCS:%.c=%.o}
 
@@ -28,20 +31,26 @@ all: ${NAME}
 $(NAME): ${OBJS}
 	$(CC) -o $@ ${OBJS} 
 
-BNS_OBJS : %.c 
+%_bonus.o : %_bonus.c pipex_bonus.h get_next_line.h ft_printf.h
 	$(CC) -c $(FLAGS) $<
 
 %.o : %.c $(INCL)
 	$(CC) -c $(FLAGS) $<
 
-bonus: ${BNS_OBJS} pipex_bonus.h get_next_line.h
-	$(CC) -o ${NAME} ${BNS_OBJS} 
+bonus: ft_printf_rule ${NAME_BNS} 
 
+${NAME_BNS}: ${BNS_OBJS} 
+	$(CC) -o ${NAME_BNS}  ${BNS_OBJS} ft_printf/libftprintf.a
+
+ft_printf_rule:
+	@make -C ft_printf
+	
 clean:
 	rm -f $(OBJS) $(BNS_OBJS)
+	make -C ft_printf clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) ${NAME_BNS} ft_printf/libftprintf.a
 
 re: fclean all
 
